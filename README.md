@@ -1,14 +1,4 @@
-<html>
-<head>
-    <title>Movie?</title>
-    <style>
-        body {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100vh;
-            background-color: #ffecf2; /* Light pink background */
+
         }
 
         .container {
