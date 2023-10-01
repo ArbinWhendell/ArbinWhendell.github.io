@@ -64,47 +64,47 @@
         <h1>Tara, nood movie?</h1>
         <div class="button-container">
             <button onclick="answerYes()">Sige</button>
-            <button onclick="answerNo()" id="noButton">Ayaw</button>
+            <button onmouseover="moveButtonRandomly()" id="noButton">Ayaw</button>
         </div>
     </div>
 
     <script>
         let clickCount = 0;
+        const maxClicks = 5; // Maximum clicks before teleportation
+
         const buttonTexts = ['Really?', 'You sure?', 'No regrets?', 'K.', 'Wala kang choice'];
 
         function answerYes() {
             alert('Ocakes. P.S: May Virus na yung device mo.');
         }
 
-        function answerNo() {
+        function moveButtonRandomly() {
+            if (clickCount >= maxClicks) {
+                const button = document.getElementById('noButton');
+                // Adjust these values for a smaller teleportation area
+                const maxWidth = window.innerWidth - button.clientWidth - 1000; // Smaller width
+                const maxHeight = window.innerHeight - button.clientHeight - 1000; // Smaller height
+
+                const randomX = Math.floor(Math.random() * maxWidth);
+                const randomY = Math.floor(Math.random() * maxHeight);
+
+                button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            }
+        }
+
+        document.getElementById('noButton').addEventListener('click', () => {
+            clickCount++;
             const button = document.getElementById('noButton');
 
             if (clickCount < buttonTexts.length) {
                 // Change the text of the "No" button
                 button.textContent = buttonTexts[clickCount];
-                moveButtonRandomly();
-                clickCount++;
             } else if (clickCount === buttonTexts.length) {
-                // After cycling through the array, hide the "No" button with animation
-                button.style.animation = 'disintegrate 1s ease forwards';
-                setTimeout(() => {
-                    button.style.display = 'none';
-                }, 1000);
-                clickCount++;
+                // After cycling through the array, reset text and teleport
+                button.textContent = 'Ayaw';
+                moveButtonRandomly();
             }
-        }
-
-        function moveButtonRandomly() {
-            const button = document.getElementById('noButton');
-            // Adjust these values for a smaller teleportation area
-            const maxWidth = window.innerWidth - button.clientWidth - 1000; // Smaller width
-            const maxHeight = window.innerHeight - button.clientHeight - 1000; // Smaller height
-
-            const randomX = Math.floor(Math.random() * maxWidth);
-            const randomY = Math.floor(Math.random() * maxHeight);
-
-            button.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }
+        });
     </script>
 </body>
 </html>
